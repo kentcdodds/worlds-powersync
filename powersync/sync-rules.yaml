@@ -1,0 +1,10 @@
+# One bucket per room. The client asks for its room with the `world_id`
+# connection parameter, so a browser only ever syncs the room it opened.
+bucket_definitions:
+  world:
+    parameters: SELECT request.parameters() ->> 'world_id' AS world_id
+    data:
+      - SELECT * FROM worlds WHERE id = bucket.world_id
+      - SELECT * FROM players WHERE world_id = bucket.world_id
+      - SELECT * FROM builds WHERE world_id = bucket.world_id
+      - SELECT * FROM blocks WHERE world_id = bucket.world_id

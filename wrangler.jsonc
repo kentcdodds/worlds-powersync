@@ -1,0 +1,13 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "worlds-cloudflare",
+	"main": "app/server.ts",
+	"compatibility_date": "2026-10-01",
+	"compatibility_flags": ["nodejs_compat"],
+	"workers_dev": true,
+	// Run near Neon (aws-us-west-2) instead of near the visitor: each write is one Neon round trip.
+	"placement": { "mode": "smart" },
+	"assets": { "directory": "./public", "binding": "ASSETS", "not_found_handling": "none" },
+	"observability": { "enabled": true }
+	// Secrets (wrangler secret put): DATABASE_URL, POWERSYNC_PRIVATE_KEY
+}

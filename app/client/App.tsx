@@ -180,7 +180,7 @@ export function App({ session, initialRoom }: { session: Session; initialRoom: R
 		[db],
 	)
 
-	// Share my cursor (throttled) so others see where I'm pointing.
+	// Share my cursor (every 200 ms when it moves; remote views ease between updates) so others see where I'm pointing.
 	const pendingCursor = useRef<Cell | null | undefined>(undefined)
 	useEffect(() => {
 		if (!me) return
@@ -199,7 +199,7 @@ export function App({ session, initialRoom }: { session: Session; initialRoom: R
 				headers: { 'content-type': 'application/json' },
 				body: JSON.stringify({ worldId, x: c?.x ?? null, y: c?.y ?? null, z: c?.z ?? null }),
 			}).catch(() => {})
-		}, 350)
+		}, 200)
 		return () => clearInterval(t)
 	}, [db, me, worldId])
 	const onHover = useCallback((cell: Cell | null) => {

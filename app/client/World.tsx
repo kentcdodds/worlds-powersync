@@ -303,17 +303,51 @@ export function World(props: {
 				</mesh>
 			) : null}
 			{cursors.map((p) => (
-				<group key={p.id} position={[p.cursor_x!, p.cursor_y!, p.cursor_z!]}>
+				<RemoteCursor key={p.id} id={p.id} x={p.cursor_x!} y={p.cursor_y!} z={p.cursor_z!}>
 					<mesh raycast={() => null}>
 						<boxGeometry args={[1.06, 1.06, 1.06]} />
 						<meshBasicMaterial color={p.color} wireframe />
 					</mesh>
 					<Label text={p.display_name} color={p.color} position={[0, 1.2, 0]} />
-				</group>
+				</RemoteCursor>
 			))}
 			{markers.map((m) => (
 				<Marker key={m.player.id} player={m.player} at={m.at} />
 			))}
 		</Canvas>
+	)
+}
+
+/** How quickly a remote cursor closes the gap to its latest position (per second). */
+const CURSOR_SMOOTHING = 14
+/** Jumps longer than this (in blocks) snap instead of gliding across the world. */
+const CURSOR_SNAP_DISTANCE = 16
+
+/**
+ * A remote player's cursor, eased toward its latest synced cell every frame
+ * with a frame-rate independent exponential lerp. Snaps on first appearance
+ * and on very large jumps. (Your own hover ghost stays instant.)
+ */
+function RemoteCursor({ id, x, y, z, children }: { id: string; x: number; y: number; z: number; children: React.ReactNode }) {
+	const ref = useRef<THREE.Group>(null)
+	const target = useRef(new THREE.Vector3(x, y, z))
+	target.current.set(x, y, z)
+	useLayoutEffect(() => {
+		ref.current?.position.set(x, y, z)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+	useFrame((_, delta) => {
+		const g = ref.current
+		if (!g) return
+		const t = target.current
+		if (g.position.distanceTo(t) > CURSOR_SNAP_DISTANCE) g.position.copy(t)
+		else g.position.lerp(t, 1 - Math.exp(-CURSOR_SMOOTHING * Math.min(delta, 0.1)))
+		const debug = ((window as unknown as { __wbCursors?: Record<string, [number, number, number]> }).__wbCursors ??= {})
+		debug[id] = [g.position.x, g.position.y, g.position.z]
+	})
+	return (
+		<group ref={ref}>
+			{children}
+		</group>
 	)
 }

@@ -4,7 +4,7 @@ Standalone fork of `@kentcdodds/world-builder` with no Kody dependencies and no 
 Visitors pick a name (stored in localStorage as a signed guest token); the Worker
 issues short-lived RS256 PowerSync tokens and validates every write.
 
-Live: https://worlds-cloudflare.kentcdodds.workers.dev  ·  Agent API docs: `/api`, `/llms.txt`
+Live: https://worlds.kentcdodds.com (also https://worlds-cloudflare.kentcdodds.workers.dev)  ·  Agent API docs: `/api`, `/llms.txt`
 
 - One Worker serves static assets (`public/`, Workers Assets) and the API (`app/server.ts`).
 - Writes: `POST /api/upload` (PowerSync uploadData, 100 ms throttle) and the public agent API

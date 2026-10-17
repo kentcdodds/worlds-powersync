@@ -5,6 +5,8 @@
 	"compatibility_date": "2026-10-01",
 	"compatibility_flags": ["nodejs_compat"],
 	"workers_dev": true,
+	// Workers Custom Domain (Cloudflare manages the DNS record and certificate).
+	"routes": [{ "pattern": "worlds.kentcdodds.com", "custom_domain": true }],
 	// Run near Neon (aws-us-west-2) instead of near the visitor: each write is one Neon round trip.
 	"placement": { "mode": "smart" },
 	"assets": { "directory": "./public", "binding": "ASSETS", "not_found_handling": "none" },

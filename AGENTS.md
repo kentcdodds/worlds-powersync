@@ -6,7 +6,7 @@ Standalone Cloudflare Workers fork of `@kentcdodds/world-builder`: no Kody runti
 no sign-in. One Worker (`worlds-cloudflare`) serves the static client and the API,
 Neon Postgres is the source of truth, and PowerSync Cloud streams rooms to browsers.
 
-Live: https://worlds-cloudflare.kentcdodds.workers.dev
+Live: https://worlds.kentcdodds.com
 
 ## Building in the world (for agents)
 
@@ -24,7 +24,7 @@ Source: `src/lib/public-api.ts`.
 | POST | `/api/v1/rooms` | `{ agent? }` → `{ room, url }` |
 
 ```sh
-curl -s -X POST https://worlds-cloudflare.kentcdodds.workers.dev/api/v1/rooms/main/blocks \
+curl -s -X POST https://worlds.kentcdodds.com/api/v1/rooms/main/blocks \
   -H 'content-type: application/json' \
   -d '{"agent":"Claude","place":[{"x":0,"y":0,"z":0,"material":"stone"}]}'
 ```
@@ -34,8 +34,8 @@ curl -s -X POST https://worlds-cloudflare.kentcdodds.workers.dev/api/v1/rooms/ma
 - Every write is one Neon transaction (`applyBlockOps` in `src/lib/world-ops.ts`): rate-limit counters, size check, write. CORS is `*` for `/api/v1/*`, `/api`, `/llms.txt`.
 - The room page's **Copy prompt for your agent** button builds the prompt in `src/shared/agent-prompt.ts`. Keep it in sync with the API.
 
-Smoke (read-only): `curl -s https://worlds-cloudflare.kentcdodds.workers.dev/api/v1/rooms/main | head -c 400`
-and `curl -s https://worlds-cloudflare.kentcdodds.workers.dev/health`.
+Smoke (read-only): `curl -s https://worlds.kentcdodds.com/api/v1/rooms/main | head -c 400`
+and `curl -s https://worlds.kentcdodds.com/health`.
 
 ## Architecture
 

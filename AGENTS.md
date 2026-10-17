@@ -1,4 +1,4 @@
-# worlds-cloudflare — agent notes
+# worlds-powersync — agent notes
 
 Human intent lives in [README.md](./README.md). This is the agent runbook.
 
@@ -7,6 +7,8 @@ no sign-in. One Worker (`worlds-cloudflare`) serves the static client and the AP
 Neon Postgres is the source of truth, and PowerSync Cloud streams rooms to browsers.
 
 Live: https://worlds.kentcdodds.com
+Repo: https://github.com/kentcdodds/worlds-powersync (public; renamed from `worlds-cloudflare`, the Worker is still named `worlds-cloudflare`).
+The app links to it as **Source code** (`SOURCE_URL` in `src/shared/world-rules.ts`): landing header chip + footer, room top bar chip + "Bring your agent" panel, `/api` and `/llms.txt`.
 
 ## Building in the world (for agents)
 

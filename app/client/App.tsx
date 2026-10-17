@@ -2,8 +2,8 @@ import { apiFetch, chooseName } from './nav.ts'
 import { useQuery, useStatus, usePowerSync } from '@powersync/react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { agentPrompt } from '../../src/shared/agent-prompt.ts'
-import { MATERIALS, blockId, type MaterialKey } from '../../src/shared/world-rules.ts'
-import { BotIcon, PanelIcon, PersonIcon, PlaceIcon, RemoveIcon, SyncIcon } from './icons.tsx'
+import { MATERIALS, blockId, type MaterialKey, SOURCE_URL } from '../../src/shared/world-rules.ts'
+import { BotIcon, GitHubIcon, PanelIcon, PersonIcon, PlaceIcon, RemoveIcon, SyncIcon } from './icons.tsx'
 import type { BlockRow, BuildRow, PlayerRow } from './powersync.ts'
 import { World, type Cell, type Mode } from './World.tsx'
 
@@ -237,6 +237,10 @@ export function App({ session, initialRoom }: { session: Session; initialRoom: R
 							Let your agent build
 						</a>
 					)}
+					<a className="chip" href={SOURCE_URL} target="_blank" rel="noreferrer" title="View the source code on GitHub">
+						<GitHubIcon />
+						<span className="chip-label">Source code</span>
+					</a>
 					<div className="avatars" aria-label={`${online.length} builders online`}>
 						{online.slice(0, 5).map((p) => (
 							<span key={p.id} className="avatar" style={{ background: p.color }} title={p.display_name}>
@@ -370,6 +374,11 @@ export function App({ session, initialRoom }: { session: Session; initialRoom: R
 							API docs
 						</a>
 					)}
+					<p className="source-row">
+						<a className="source-link" href={SOURCE_URL} target="_blank" rel="noreferrer">
+							<GitHubIcon /> Source code
+						</a>
+					</p>
 				</section>
 				<details className="details">
 					<summary>Details</summary>

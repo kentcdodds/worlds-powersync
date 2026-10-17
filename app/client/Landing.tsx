@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { planCastle } from '../../src/shared/castle.ts'
-import { BotIcon, PersonIcon, SyncIcon } from './icons.tsx'
+import { BotIcon, PersonIcon, SyncIcon, GitHubIcon } from './icons.tsx'
+import { SOURCE_URL } from '../../src/shared/world-rules.ts'
 import { apiFetch, chooseName, clearGuestToken, hasChosenName, navigate, saveGuestToken } from './nav.ts'
 import type { BlockRow, BuildRow, PlayerRow } from './powersync.ts'
 import { World } from './World.tsx'
@@ -101,11 +102,17 @@ export function Landing({ appBase }: { appBase: string }) {
 					<img src={`${document.documentElement.dataset.assetBase}/icon.png`} alt="" width={30} height={30} />
 					<strong>World Builder</strong>
 				</div>
+				<div className="top-right">
+				<a className="chip" href={SOURCE_URL} target="_blank" rel="noreferrer" title="View the source code on GitHub">
+					<GitHubIcon />
+					<span className="chip-label">Source code</span>
+				</a>
 				{me ? (
 					<button type="button" className="chip" onClick={rename} title="Change the name other builders see">
 						{me.displayName ?? 'Pick a name'} ✎
 					</button>
 				) : null}
+				</div>
 			</header>
 			<main className="hero">
 				<p className="eyebrow">
@@ -158,6 +165,10 @@ export function Landing({ appBase }: { appBase: string }) {
 				Powered by <a href="https://www.powersync.com" target="_blank" rel="noreferrer">PowerSync</a> and{' '}
 				<a href="https://neon.tech" target="_blank" rel="noreferrer">Neon</a> on{' '}
 				<a href="https://workers.cloudflare.com" target="_blank" rel="noreferrer">Cloudflare Workers</a>
+				{' · '}
+				<a className="source-link" href={SOURCE_URL} target="_blank" rel="noreferrer">
+					<GitHubIcon /> Source code
+				</a>
 			</footer>
 		</div>
 	)

@@ -63,6 +63,9 @@ export const MATERIAL_KEYS: ReadonlySet<string> = new Set(
 )
 
 /** Write limits. The app enforces these server-side for humans and agents. */
+/** Public source repository for this app. */
+export const SOURCE_URL = 'https://github.com/kentcdodds/worlds-powersync'
+
 export const LIMITS = {
 	/** Max operations in one browser upload batch. */
 	maxUploadOps: 200,

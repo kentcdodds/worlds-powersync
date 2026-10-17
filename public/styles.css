@@ -221,3 +221,11 @@ a.cta { color: #fff; }
 .landing-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-right: 24px; }
 @media (max-width: 640px) { .chip.primary[href] { width: auto; padding: 0 12px; } }
 .linkish { background: none; border: 0; padding: 0; color: inherit; text-decoration: underline; cursor: pointer; font: inherit; }
+
+/* Source code link (GitHub) */
+.source-link { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; }
+.source-link svg { width: 14px; height: 14px; }
+.howto .source-row { margin: 10px 0 0; font-size: 13px; }
+.howto .source-link { color: var(--muted); text-decoration: none; }
+.howto .source-link:hover { color: var(--text); }
+.landing-top .top-right { display: flex; align-items: center; gap: 8px; }

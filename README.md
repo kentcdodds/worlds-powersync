@@ -5,6 +5,7 @@ Visitors pick a name (stored in localStorage as a signed guest token); the Worke
 issues short-lived RS256 PowerSync tokens and validates every write.
 
 Live: https://worlds.kentcdodds.com (also https://worlds-cloudflare.kentcdodds.workers.dev)  ·  Agent API docs: `/api`, `/llms.txt`
+Source: https://github.com/kentcdodds/worlds-powersync
 
 - One Worker serves static assets (`public/`, Workers Assets) and the API (`app/server.ts`).
 - Writes: `POST /api/upload` (PowerSync uploadData, 100 ms throttle) and the public agent API
